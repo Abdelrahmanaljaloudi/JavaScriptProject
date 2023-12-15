@@ -166,8 +166,7 @@
                     case 'root':
                         squareRoot();
                         break;
-                        case '.': dec(d);
-                        break;
+                      
                     default:
                         if (isResultDisplayed || resultElement.innerHTML === '0' || resultElement.innerHTML === 'Error') {
                             resultElement.innerHTML = btnText;
@@ -275,17 +274,7 @@
                 isResultDisplayed = true;
             }
         }
-        function dec(d) {
-    let currentValue = resultElement.innerHTML; // Use innerHTML to get the current value
-    let displayArray = currentValue.split("");
-
-    // Check if the array already includes a dot
-    if (!displayArray.includes(".")) {
-        displayArray.push(".");
-        currentValue = displayArray.join(""); // Join the array to form the updated value
-        resultElement.innerHTML = currentValue;
-    }
-}
+ 
  
     </script>
 
