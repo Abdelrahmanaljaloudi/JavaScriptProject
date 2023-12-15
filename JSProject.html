@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="JSProject.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #464040;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #struc {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+
+        }
+
+        #result {
+            background-color: #e0e0e0;
+            padding: 10px;
+            font-size: 1.5em;
+            text-align: right;
+        }
+
+
+
+        .btn {
+            margin: 2px 2px 2px 2px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: none;
+            width: 50px;
+            height: 50px;
+        }
+
+
+
+        .btn-secondary:hover {
+            background-color: #dcdcdc;
+        }
+
+        #box {
+            margin: 20px 20px 20px 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="struc">
+        <div id="result">0</div>
+        <div id="box">
+            <div class="sign">
+                <button type="button" class="btn btn-secondary" id="CE" value="CE">CE</button>
+                <button type="button" class="btn btn-secondary" id="!" value="!">!</button>
+                <button type="button" class="btn btn-secondary" id="(" value="(">(</button>
+                <button type="button" class="btn btn-secondary" id=")" value=")">)</button>
+                <button type="button" class="btn btn-secondary" id="%" value="%">%</button>
+                <button type="button" class="btn btn-secondary" id="c" value="C">C</button>
+
+
+            </div>
+            <div id="numbers">
+                <div id="from1to3">
+                    <button type="button" class="btn btn-secondary" id="sin" value="sin">sin</button>
+                    <button type="button" class="btn btn-secondary" id="ln" value="ln">ln</button>
+                    <button type="button" class="btn btn-secondary" id="7" value="7">7</button>
+                    <button type="button" class="btn btn-secondary" id="8" value="8">8</button>
+                    <button type="button" class="btn btn-secondary" id="9" value="9">9</button>
+                    <button type="button" class="btn btn-secondary" id="/" value="/">/</button>
+                </div>
+                <div id="from4to6">
+                    <button type="button" class="btn btn-secondary" id="cos" value="cos">cos</button>
+                    <button type="button" class="btn btn-secondary" id="log" value="log">log</button>
+                    <button type="button" class="btn btn-secondary" id="4" value="4">4</button>
+                    <button type="button" class="btn btn-secondary" id="5" value="5">5</button>
+                    <button type="button" class="btn btn-secondary" id="6" value="6">6</button>
+                    <button type="button" class="btn btn-secondary" id="*" value="*">*</button>
+                </div>
+                <div id="from7to9">
+                    <button type="button" class="btn btn-secondary" id="tan" value="tan">tan</button>
+                    <button type="button" class="btn btn-secondary" id="root" value="root">&#8730</button>
+                    <button type="button" class="btn btn-secondary" id="1" value="1">1</button>
+                    <button type="button" class="btn btn-secondary" id="2" value="2">2</button>
+                    <button type="button" class="btn btn-secondary" id="3" value="3">3</button>
+                    <button type="button" class="btn btn-secondary" id="-" value="-">-</button>
+                </div>
+                <div id="from7to">
+                    <button type="button" class="btn btn-secondary" id="RE" value="RE">RE</button>
+                    <button type="button" class="btn btn-secondary" id="0" value="pow">X<sup>y</sup></button>
+                    <button type="button" class="btn btn-secondary" id="0" value="0">0</button>
+                    <button type="button" class="btn btn-secondary" id="." value=".">.</button>
+                    <button type="button" class="btn btn-secondary" id="=" value="="
+                        onclick="eval(resultElement.innerHTML.vlue)">=</button>
+                    <button type="button" class="btn btn-secondary" id="+" value="+">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var resultElement = document.getElementById('result');
+        var btnAll = Array.from(document.querySelectorAll('.btn'));
+        var isResultDisplayed = true;
+        var storedValue = 0;
+        var dotUsed = false;
+
+        for (var btn of btnAll) {
+            btn.addEventListener("click", (e) => {
+                var btnText = e.target.value;
+
+                switch (btnText) {
+                    case 'C':
+                        resultElement.innerHTML = '0';
+                        isResultDisplayed = false;
+                        break;
+                    case '=':
+                        try {
+                            var evaluatedResult = eval(resultElement.innerHTML).toString();
+                            resultElement.innerHTML = evaluatedResult;
+                            isResultDisplayed = true;
+                            RE();
+                        } catch (error) {
+                            resultElement.innerHTML = 'Error';
+                            isResultDisplayed = true;
+                        }
+                        break;
+                    case 'sin':
+                        sin();
+                        break;
+                    case 'cos':
+                        cos();
+                        break;
+                    case 'tan':
+                        tan();
+                        break;
+                    case '!':
+                        factorial();
+                        break;
+                    case 'CE':
+                        CE();
+                        break;
+                    case 'log':
+                        log();
+                        break;
+                    case 'RE':
+                        resultElement.innerHTML = RE();
+                        break;
+                    case 'pow':
+                        power();
+                        break;
+                    case 'ln':
+                        naturalLogarithm();
+                        break;
+                    case 'root':
+                        squareRoot();
+                        break;
+                        case '.': dec(d);
+                        break;
+                    default:
+                        if (isResultDisplayed || resultElement.innerHTML === '0' || resultElement.innerHTML === 'Error') {
+                            resultElement.innerHTML = btnText;
+                            isResultDisplayed = false;
+                        } else {
+                            resultElement.innerHTML += btnText;
+                        }
+                        break;
+                }
+            });
+        }
+
+
+        function sin() {
+            var currentValue = parseFloat(resultElement.innerHTML);
+            var sinValue = Math.sin(currentValue * (Math.PI / 180));
+            resultElement.innerHTML = sinValue.toFixed(3);
+            isResultDisplayed = true;
+        }
+
+        function cos() {
+            var currentValue = parseFloat(resultElement.innerHTML);
+            var cosValue = Math.cos(currentValue * (Math.PI / 180));
+            resultElement.innerHTML = cosValue.toFixed(3);
+            isResultDisplayed = true;
+        }
+
+        function tan() {
+            var currentValue = parseFloat(resultElement.innerHTML);
+            var tanValue = Math.tan(currentValue * (Math.PI / 180));
+            resultElement.innerHTML = tanValue.toFixed(3);
+            isResultDisplayed = true;
+        }
+
+        function factorial() {
+            var currentValue = parseFloat(resultElement.innerHTML);
+            if (currentValue === 0 || currentValue === 1) {
+                resultElement.innerHTML = '1';
+            } else {
+                var result = 1;
+                for (var i = 2; i <= currentValue; i++) {
+                    result *= i;
+                }
+                resultElement.innerHTML = result.toString();
+            }
+            isResultDisplayed = true;
+        }
+
+        function CE() {
+            var currentValue = resultElement.innerHTML;
+            if (currentValue.length > 1) {
+                currentValue = currentValue.slice(0, -1);
+                resultElement.innerHTML = currentValue;
+            } else {
+                resultElement.innerHTML = '0';
+            }
+        }
+
+        function log() {
+            var currentValue = parseFloat(resultElement.innerHTML);
+            if (!isNaN(currentValue) && currentValue > 0) {
+                var logValue = Math.log10(currentValue);
+                resultElement.innerHTML = logValue.toFixed(3);
+            } else {
+                resultElement.innerHTML = 'Error';
+            }
+        }
+
+        function RE() {
+            return storedValue;
+        }
+        function power() {
+            var currentValue = parseFloat(resultElement.innerHTML);
+            var exponent = prompt("Enter the exponent (y):");
+            if (exponent !== null && !isNaN(exponent)) {
+                var result = Math.pow(currentValue, parseFloat(exponent));
+                resultElement.innerHTML = result.toString();
+                isResultDisplayed = true;
+            } else {
+                resultElement.innerHTML = 'Error';
+                isResultDisplayed = true;
+            }
+        }
+        function naturalLogarithm() {
+            var currentValue = parseFloat(resultElement.innerHTML);
+
+            if (!isNaN(currentValue) && currentValue > 0) {
+                var lnValue = Math.log(currentValue);
+                resultElement.innerHTML = lnValue.toFixed(3);
+                isResultDisplayed = true;
+            } else {
+                resultElement.innerHTML = 'Error';
+                isResultDisplayed = true;
+            }
+        }
+        function squareRoot() {
+            var currentValue = parseFloat(resultElement.innerHTML);
+
+            if (!isNaN(currentValue) && currentValue >= 0) {
+                var sqrtValue = Math.sqrt(currentValue);
+                resultElement.innerHTML = sqrtValue.toFixed(3);
+                isResultDisplayed = true;
+            } else {
+                resultElement.innerHTML = 'Error';
+                isResultDisplayed = true;
+            }
+        }
+        function dec(d) {
+    let currentValue = resultElement.innerHTML; // Use innerHTML to get the current value
+    let displayArray = currentValue.split("");
+
+    // Check if the array already includes a dot
+    if (!displayArray.includes(".")) {
+        displayArray.push(".");
+        currentValue = displayArray.join(""); // Join the array to form the updated value
+        resultElement.innerHTML = currentValue;
+    }
+}
+ 
+    </script>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+
+</body>
+
+</html>
